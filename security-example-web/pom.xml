@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.security</groupId>
+        <artifactId>security-example</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+        <relativePath/>
+    </parent>
+
+    <groupId>com.security</groupId>
+    <artifactId>security-example-web</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>security-example-web</name>
+    <description>web端服务</description>
+
+    <dependencies>
+
+        <!-- core的依赖 -->
+        <dependency>
+            <groupId>com.security</groupId>
+            <artifactId>security-example-core</artifactId>
+            <version>${security.example.version}</version>
+        </dependency>
+
+        <!-- spring session -->
+        <dependency>
+            <groupId>org.springframework.session</groupId>
+            <artifactId>spring-session</artifactId>
+        </dependency>
+
+    </dependencies>
+
+</project>
