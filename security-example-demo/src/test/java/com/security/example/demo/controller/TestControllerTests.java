@@ -8,6 +8,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import lombok.extern.slf4j.Slf4j;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -26,6 +27,7 @@ import org.springframework.web.context.WebApplicationContext;
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest
+@Slf4j
 public class TestControllerTests {
 
     @Autowired
@@ -59,11 +61,14 @@ public class TestControllerTests {
                 "    \"id\": 1,\n" +
                 "    \"name\": \"zhou\",\n" +
                 "    \"sex\": 1,\n" +
-                "    \"password\": \"123456\"\n" +
+                "    \"password\": \"123456\",\n" +
+                "    \"phoneNo\": \"13211112222\"\n" +
                 "}";
 
-        mockMvc.perform(post("/test").content(content).contentType(MediaType.APPLICATION_JSON_UTF8))
-                .andExpect(status().isOk());
+        String result = mockMvc.perform(post("/test").content(content).contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
+
+        log.info("结果:{}", result);
     }
 
     @Test

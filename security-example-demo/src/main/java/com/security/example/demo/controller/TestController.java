@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.math.RandomUtils;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -41,7 +42,7 @@ public class TestController {
     }
 
     @PostMapping
-    public User insert(@RequestBody User user){
+    public User insert(@Valid @RequestBody User user){
         log.info("添加接口,新建数据....");
         user.setId(RandomUtils.nextLong());
         return user;

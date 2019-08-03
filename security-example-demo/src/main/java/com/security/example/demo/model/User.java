@@ -1,5 +1,6 @@
 package com.security.example.demo.model;
 
+import com.security.example.demo.validator.PhoneNo;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -19,4 +20,7 @@ public class User implements Serializable {
     private String password;
 
     private Integer sex;
+
+    @PhoneNo
+    private String phoneNo;
 }
