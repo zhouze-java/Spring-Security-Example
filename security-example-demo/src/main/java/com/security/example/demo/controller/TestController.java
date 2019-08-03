@@ -1,5 +1,6 @@
 package com.security.example.demo.controller;
 
+import com.security.example.demo.exception.UserNotExistException;
 import com.security.example.demo.model.User;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.math.RandomUtils;
@@ -38,6 +39,7 @@ public class TestController {
     @GetMapping("{id:\\d+}")
     public User getInfo(@PathVariable Long id){
         log.info("查询id是[{}]的数据.....", id);
+//        throw new UserNotExistException(id);
         return new User();
     }
 
