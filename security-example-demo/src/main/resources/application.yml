@@ -8,8 +8,5 @@ spring:
     password: 123456
   session:
     store-type: none
-security:
-  basic:
-    enabled: true
 server:
   port: 8080
