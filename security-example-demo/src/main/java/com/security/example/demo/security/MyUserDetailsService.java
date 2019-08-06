@@ -2,6 +2,7 @@ package com.security.example.demo.security;
 
 import com.security.example.core.model.User;
 import com.security.example.core.service.UserService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Component;
  * @Description 自定义登录
  */
 @Component
+@Slf4j
 public class MyUserDetailsService implements UserDetailsService {
 
     @Autowired
@@ -22,6 +24,7 @@ public class MyUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        log.info("进行用户认证...");
         // 这里是模拟从数据库查询用户
         User user = userService.findUserByName(username);
 

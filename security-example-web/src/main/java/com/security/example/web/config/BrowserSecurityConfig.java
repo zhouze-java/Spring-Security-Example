@@ -3,6 +3,7 @@ package com.security.example.web.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -24,10 +25,15 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         // formLogin 表示表单认证
         http.formLogin()
+                .loginPage("/authentication/require")
+                .loginProcessingUrl("/authentication/from")
                 .and()
-                // 授权请求. anyRequest 就表示所有的请求都需要权限认证
                 .authorizeRequests()
-                .anyRequest()
-                .authenticated();
+                // 匹配的是登录页的话放行
+                .antMatchers("/authentication/require", "/login.html").permitAll()
+                // 授权请求. anyRequest 就表示所有的请求都需要权限认证
+                .anyRequest().authenticated()
+                .and().csrf().disable();
+
     }
 }
