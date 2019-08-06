@@ -1,15 +1,15 @@
 package com.security.example.demo.controller;
 
-import com.security.example.demo.exception.UserNotExistException;
-import com.security.example.demo.model.User;
+import com.security.example.core.model.User;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.math.RandomUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 /**
  * @author 周泽
@@ -20,6 +20,9 @@ import java.util.Random;
 @RestController
 @RequestMapping("test")
 public class TestController {
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @GetMapping("/list")
     public List<User> list(){
@@ -39,7 +42,7 @@ public class TestController {
     @GetMapping("{id:\\d+}")
     public User getInfo(@PathVariable Long id){
         log.info("查询id是[{}]的数据.....", id);
-//        throw new UserNotExistException(id);
+        System.out.println(passwordEncoder.encode("123456"));
         return new User();
     }
 
