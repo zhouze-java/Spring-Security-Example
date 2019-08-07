@@ -1,7 +1,8 @@
 package com.security.example.web.controller;
 
+import com.security.example.core.config.SecurityProperties;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.web.DefaultRedirectStrategy;
 import org.springframework.security.web.RedirectStrategy;
@@ -24,12 +25,16 @@ import java.util.Map;
  * @Description 请求来源判断controller
  */
 @Slf4j
-@RestController("/authentication/require")
+@RestController
+@RequestMapping("/authentication/require")
 public class BrowserController {
 
     private RequestCache requestCache = new HttpSessionRequestCache();
 
     private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
+
+    @Autowired
+    private SecurityProperties securityProperties;
 
     /**
      * 需要身份认证的时候先跳转到这里
@@ -44,7 +49,7 @@ public class BrowserController {
         if (savedRequest != null) {
             String targetUrl = savedRequest.getRedirectUrl();
             log.info("引发跳转的请求是:" + targetUrl);
-            redirectStrategy.sendRedirect(request, response, "/login.html");
+            redirectStrategy.sendRedirect(request, response, securityProperties.getBrowser().getLoginPage());
         }
     }
 
