@@ -1,5 +1,6 @@
 package com.security.example.core.config;
 
+import com.security.example.core.enums.LoginResponseType;
 import lombok.Data;
 
 /**
@@ -10,6 +11,13 @@ import lombok.Data;
 @Data
 public class BrowserProperties {
 
-    private String loginPage = "/login.html";
+    /**
+     * 登录页配置
+     */
+     private String loginPage = "/login.html";
 
+    /**
+     * 登录返回类型
+     */
+    private LoginResponseType loginType = LoginResponseType.JSON;
 }

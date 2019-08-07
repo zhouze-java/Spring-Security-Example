@@ -8,6 +8,8 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 /**
  * @author 周泽
@@ -20,6 +22,12 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private SecurityProperties securityProperties;
 
+    @Autowired
+    private AuthenticationSuccessHandler myAuthenticationSuccessHandler;
+
+    @Autowired
+    private AuthenticationFailureHandler myAuthenticationFailureHandler;
+
     @Bean
     public PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
@@ -31,6 +39,8 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
         http.formLogin()
                 .loginPage("/authentication/require")
                 .loginProcessingUrl("/authentication/from")
+                .successHandler(myAuthenticationSuccessHandler)
+                .failureHandler(myAuthenticationFailureHandler)
                 .and()
                 .authorizeRequests()
                 // 匹配的是登录页的话放行
@@ -44,3 +54,4 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
 
     }
 }
+
