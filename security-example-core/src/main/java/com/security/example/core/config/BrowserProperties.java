@@ -19,5 +19,5 @@ public class BrowserProperties {
     /**
      * 登录返回类型
      */
-    private LoginResponseType loginType = LoginResponseType.JSON;
+    private LoginResponseType loginResponseType = LoginResponseType.JSON;
 }

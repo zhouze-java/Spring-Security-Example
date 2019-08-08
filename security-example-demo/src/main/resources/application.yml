@@ -14,3 +14,4 @@ core:
   security:
     browser:
       loginPage: /myLogin.html
+      loginResponseType: JSON

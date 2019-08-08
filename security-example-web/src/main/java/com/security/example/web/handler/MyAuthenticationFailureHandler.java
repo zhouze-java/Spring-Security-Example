@@ -2,10 +2,12 @@ package com.security.example.web.handler;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.security.example.core.config.SecurityProperties;
+import com.security.example.core.enums.LoginResponseType;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.ServletException;
@@ -20,7 +22,7 @@ import java.io.IOException;
  */
 @Slf4j
 @Component("myAuthenticationFailureHandler")
-public class MyAuthenticationFailureHandler implements AuthenticationFailureHandler {
+public class MyAuthenticationFailureHandler extends SimpleUrlAuthenticationFailureHandler {
 
     @Autowired
     private ObjectMapper objectMapper;
@@ -32,8 +34,14 @@ public class MyAuthenticationFailureHandler implements AuthenticationFailureHand
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
 
         log.info("认证失败...");
-        response.setContentType("application/json;charset=UTF-8");
-        response.getWriter().write(objectMapper.writeValueAsString(exception));
+
+        if (LoginResponseType.JSON.equals(securityProperties.getBrowser().getLoginResponseType())) {
+            response.setContentType("application/json;charset=UTF-8");
+            response.getWriter().write(objectMapper.writeValueAsString(exception));
+        } else {
+            super.onAuthenticationFailure(request, response, exception);
+        }
+
     }
 
 }
