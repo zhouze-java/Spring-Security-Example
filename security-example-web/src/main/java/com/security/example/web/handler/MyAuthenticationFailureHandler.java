@@ -6,7 +6,6 @@ import com.security.example.core.enums.LoginResponseType;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
 import org.springframework.stereotype.Component;
 
@@ -14,6 +13,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author 周泽
@@ -36,8 +37,11 @@ public class MyAuthenticationFailureHandler extends SimpleUrlAuthenticationFailu
         log.info("认证失败...");
 
         if (LoginResponseType.JSON.equals(securityProperties.getBrowser().getLoginResponseType())) {
+            // 只返回错误消息
+            Map<String, Object> map = new HashMap<>(1);
+            map.put("message", exception.getMessage());
             response.setContentType("application/json;charset=UTF-8");
-            response.getWriter().write(objectMapper.writeValueAsString(exception));
+            response.getWriter().write(objectMapper.writeValueAsString(map));
         } else {
             super.onAuthenticationFailure(request, response, exception);
         }

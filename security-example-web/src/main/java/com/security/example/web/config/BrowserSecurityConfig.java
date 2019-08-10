@@ -1,15 +1,18 @@
 package com.security.example.web.config;
 
 import com.security.example.core.config.SecurityProperties;
+import com.security.example.core.validate.filter.ValidateCodeFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 /**
  * @author 周泽
@@ -18,6 +21,9 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
  */
 @Configuration
 public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
+
+    @Autowired
+    private RedisTemplate redisTemplate;
 
     @Autowired
     private SecurityProperties securityProperties;
@@ -35,8 +41,14 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        ValidateCodeFilter validateCodeFilter = new ValidateCodeFilter();
+        validateCodeFilter.setAuthenticationFailureHandler(myAuthenticationFailureHandler);
+        validateCodeFilter.setRedisTemplate(redisTemplate);
+
         // formLogin 表示表单认证
-        http.formLogin()
+        http
+                .addFilterBefore(validateCodeFilter, UsernamePasswordAuthenticationFilter.class)
+                .formLogin()
                 .loginPage("/authentication/require")
                 .loginProcessingUrl("/authentication/from")
                 .successHandler(myAuthenticationSuccessHandler)
@@ -46,6 +58,7 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
                 // 匹配的是登录页的话放行
                 .antMatchers(
                         "/authentication/require",
+                        "/code/image",
                         securityProperties.getBrowser().getLoginPage())
                 .permitAll()
                 // 授权请求. anyRequest 就表示所有的请求都需要权限认证
