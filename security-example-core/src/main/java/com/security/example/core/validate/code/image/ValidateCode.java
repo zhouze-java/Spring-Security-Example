@@ -1,5 +1,7 @@
 package com.security.example.core.validate.code.image;
 
+import lombok.Data;
+
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -11,24 +13,25 @@ import java.util.Random;
 /**
  * @author 周泽
  * @date Create in 22:58 2019/8/10
- * @Description
+ * @Description 生成图片验证码
  */
+@Data
 public class ValidateCode {
 
     /**
      * 图片的宽度
      */
-    private int width = 160;
+    private int width;
 
     /**
      *  图片的高度
      */
-    private int height = 40;
+    private int height;
 
     /**
      * 验证码字符个数
      */
-    private int codeCount = 5;
+    private int codeCount;
 
     /**
      * 验证码干扰线数
@@ -52,36 +55,19 @@ public class ValidateCode {
             'K', 'L', 'M', 'N', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W',
             'X', 'Y', 'Z', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
 
-    /**
-     * 默认构造函数,设置默认参数
-     */
-    public ValidateCode() {
-        this.createCode();
-    }
 
     /**
      * @param width  图片宽
      * @param height 图片高
+     * @param codeCount 验证码位数
      */
-    public ValidateCode(int width, int height) {
-        this.width = width;
-        this.height = height;
-        this.createCode();
-    }
-
-    /**
-     * @param width     图片宽
-     * @param height    图片高
-     * @param codeCount 字符个数
-     * @param lineCount 干扰线条数
-     */
-    public ValidateCode(int width, int height, int codeCount, int lineCount) {
+    public ValidateCode(int width, int height, int codeCount) {
         this.width = width;
         this.height = height;
         this.codeCount = codeCount;
-        this.lineCount = lineCount;
         this.createCode();
     }
+
 
     public void createCode() {
         int x = 0, fontHeight = 0, codeY = 0;
@@ -150,14 +136,6 @@ public class ValidateCode {
     public void write(OutputStream sos) throws IOException {
         ImageIO.write(buffImg, "png", sos);
         sos.close();
-    }
-
-    public BufferedImage getBuffImg() {
-        return buffImg;
-    }
-
-    public String getCode() {
-        return code;
     }
 
 }

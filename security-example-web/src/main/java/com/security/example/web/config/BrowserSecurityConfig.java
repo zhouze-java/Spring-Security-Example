@@ -44,6 +44,8 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
         ValidateCodeFilter validateCodeFilter = new ValidateCodeFilter();
         validateCodeFilter.setAuthenticationFailureHandler(myAuthenticationFailureHandler);
         validateCodeFilter.setRedisTemplate(redisTemplate);
+        validateCodeFilter.setSecurityProperties(securityProperties);
+        validateCodeFilter.afterPropertiesSet();
 
         // formLogin 表示表单认证
         http

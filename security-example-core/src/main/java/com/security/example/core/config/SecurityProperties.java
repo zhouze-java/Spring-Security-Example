@@ -1,5 +1,6 @@
 package com.security.example.core.config;
 
+import com.security.example.core.validate.code.image.ValidateCode;
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
@@ -17,4 +18,8 @@ public class SecurityProperties {
      */
     private BrowserProperties browser = new BrowserProperties();
 
+    /**
+     * 验证码配置
+     */
+    private ValidateCodeProperties code = new ValidateCodeProperties();
 }

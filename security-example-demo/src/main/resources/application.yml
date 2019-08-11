@@ -31,3 +31,7 @@ core:
     browser:
       loginPage: /myLogin.html
       loginResponseType: JSON
+    code:
+      imageCode:
+        codeCount: 4
+        urls: /user/**,/test/*
