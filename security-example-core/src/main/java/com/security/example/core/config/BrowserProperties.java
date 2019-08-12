@@ -20,4 +20,9 @@ public class BrowserProperties {
      * 登录返回类型
      */
     private LoginResponseType loginResponseType = LoginResponseType.JSON;
+
+    /**
+     * 记住我的秒数
+     */
+    private int rememberMeSeconds = 60 * 60 * 24;
 }
