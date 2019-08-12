@@ -34,4 +34,4 @@ core:
     code:
       imageCode:
         codeCount: 4
-        urls: /user/**,/test/*
+#        urls: /user/**,/test/*

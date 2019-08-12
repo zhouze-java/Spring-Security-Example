@@ -50,14 +50,19 @@ public class ValidateCodeFilter extends OncePerRequestFilter implements Initiali
 
     @Override
     public void afterPropertiesSet() throws ServletException {
+
         super.afterPropertiesSet();
+        // 登录是必须拦截的,直接加进去
+        urls.add("/authentication/from");
+        // 如果没有配置的话,return掉
+        if (StringUtils.isEmpty(securityProperties.getCode().getImageCode().getUrls())){
+            return;
+        }
+
         String[] configUrls = StringUtils.splitByWholeSeparatorPreserveAllTokens(securityProperties.getCode().getImageCode().getUrls(), ",");
         for (String configUrl : configUrls) {
             urls.add(configUrl);
         }
-
-        // 最后,登录是必须拦截的,直接加进去
-        urls.add("/authentication/from");
     }
 
     @Override
