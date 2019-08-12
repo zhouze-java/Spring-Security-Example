@@ -1,6 +1,6 @@
 package com.security.example.core.validate.code;
 
-import com.security.example.core.validate.code.image.ImageCode;
+import com.security.example.core.validate.code.base.BaseCode;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -16,6 +16,6 @@ public interface ValidateCodeGenerator {
      * @param request
      * @return
      */
-    ImageCode generate(HttpServletRequest request);
+    BaseCode generate(HttpServletRequest request);
 
 }

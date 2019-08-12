@@ -36,7 +36,19 @@
 				</form>
 				<p>创建一个账号? <a href="#"> 立即登录!</a></p>
 			</div>	 
-		</div>	
+		</div>
+
+		<div class="main-agileinfo">
+			<div class="agileits-top">
+				<form action="/authentication/mobile" method="post">
+					<input class="text" type="text" value="13200000000" name="phoneNo" placeholder="手机号" required="">
+					<input class="text" type="text" name="smsCode" placeholder="验证码" required="">
+					<br>
+					<a href="/code/smsCode?phoneNo=13200000000">发送验证码</a>
+					<input type="submit" value="登录">
+				</form>
+			</div>
+		</div>
 		<!-- copyright -->
 		<div class="w3copyright-agile">
 			<p>© 2017 All rights Reserved</p>

@@ -8,7 +8,7 @@ import lombok.Data;
  * @Description 图形验证码配置
  */
 @Data
-public class ImageCodeProperties {
+public class ImageCodeProperties extends BaseCodeProperties{
     /**
      * 图片的宽度
      */
@@ -19,18 +19,5 @@ public class ImageCodeProperties {
      */
     private int height = 40;
 
-    /**
-     * 验证码字符个数
-     */
-    private int codeCount = 4;
 
-    /**
-     * 过期秒数
-     */
-    private int expireIn = 60;
-
-    /**
-     * 要拦截的请求 逗号隔开
-     */
-    private String urls;
 }
