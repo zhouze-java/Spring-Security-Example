@@ -4,6 +4,7 @@ import com.security.example.core.config.SecurityProperties;
 import com.security.example.core.validate.code.ValidateCodeGenerator;
 import com.security.example.core.validate.code.base.BaseCode;
 import org.apache.commons.lang.RandomStringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,6 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 @Component("smsCodeGenerator")
 public class SmsCodeGenerator implements ValidateCodeGenerator {
 
+    @Autowired
     private SecurityProperties securityProperties;
 
     @Override
