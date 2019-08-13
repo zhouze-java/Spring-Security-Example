@@ -11,13 +11,9 @@ import lombok.Data;
 public class Constants {
 
     /**
-     * 图片验证码前缀
+     * 验证码前缀
      */
-    public static final String IMAGE_CODE_KEY_PREFIX = "code:image:";
+    public static final String VALIDATE_CODE_KEY_PREFIX = "code:";
 
-    /**
-     * 登录短信验证码
-     */
-    public static final String LOGIN_SMS_CODE_KEY_PREFIX = "login:code:sms:";
 
 }

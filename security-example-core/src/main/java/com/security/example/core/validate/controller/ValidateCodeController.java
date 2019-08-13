@@ -3,6 +3,7 @@ package com.security.example.core.validate.controller;
 import com.security.example.core.config.SecurityProperties;
 import com.security.example.core.config.redis.Constants;
 import com.security.example.core.validate.code.ValidateCodeGenerator;
+import com.security.example.core.validate.code.ValidateCodeProcessor;
 import com.security.example.core.validate.code.image.ImageCode;
 import com.security.example.core.validate.code.image.ValidateCode;
 import com.security.example.core.validate.code.sms.SmsCode;
@@ -14,12 +15,14 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.ServletRequestBindingException;
 import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Map;
 
 /**
  * @author 周泽
@@ -30,46 +33,16 @@ import java.io.IOException;
 @Slf4j
 public class ValidateCodeController {
 
+    /**
+     * 收集系统中的所有 {@link ValidateCodeProcessor} 的实现
+     */
     @Autowired
-    private RedisTemplate redisTemplate;
+    private Map<String, ValidateCodeProcessor> validateCodeProcessors;
 
-    @Autowired
-    private ValidateCodeGenerator imageCodeGenerator;
-
-    @Autowired
-    private ValidateCodeGenerator smsCodeGenerator;
-
-    @Autowired
-    private SmsCodeSender smsCodeSender;
-
-    @GetMapping("code/image")
-    public void getImageCode(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        // 根据随机数生成数字
-        ImageCode imageCode = (ImageCode)imageCodeGenerator.generate(request);
-
-        // 将随机数存到缓存中
-        String redisKey = Constants.IMAGE_CODE_KEY_PREFIX + request.getSession().getId();
-        log.info("将验证码放到缓存中,redisKey:{}", request.getSession().getId());
-        redisTemplate.opsForValue().set(redisKey, imageCode);
-
-        // 将生成的图片写到接口的响应中
-        ImageIO.write(imageCode.getImage(), "JPEG", response.getOutputStream());
+    @GetMapping("code/{type}")
+    public void getCode(HttpServletRequest request, HttpServletResponse response, @PathVariable String type) throws IOException, ServletRequestBindingException {
+        ValidateCodeProcessor processor = validateCodeProcessors.get(type + "CodeProcessor");
+        processor.createCode(request, response);
     }
 
-    @GetMapping("code/sms")
-    public void getSmsCode(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletRequestBindingException {
-        // 从请求中获取手机号
-        String phoneNo = ServletRequestUtils.getRequiredStringParameter(request, "phoneNo");
-
-        // 根据随机数生成数字
-        SmsCode smsCode = (SmsCode) smsCodeGenerator.generate(request);
-
-        // 将随机数存到缓存中
-        String redisKey = Constants.LOGIN_SMS_CODE_KEY_PREFIX + phoneNo;
-        log.info("将验证码放到缓存中,redisKey:{}", request.getSession().getId());
-        redisTemplate.opsForValue().set(redisKey, smsCode);
-
-        // 发送短信验证码
-        smsCodeSender.send(phoneNo, smsCode.getCode());
-    }
 }
