@@ -22,4 +22,10 @@ public interface ValidateCodeProcessor  {
      */
     void createCode(HttpServletRequest request, HttpServletResponse response) throws ServletRequestBindingException, IOException;
 
+    /**
+     * 校验验证码
+     * @param request
+     * @throws ServletRequestBindingException
+     */
+    void validate(HttpServletRequest request) throws ServletRequestBindingException;
 }

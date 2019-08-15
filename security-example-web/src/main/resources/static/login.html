@@ -17,7 +17,7 @@
 				<form action="/authentication/from" method="post">
 					<input class="text" type="text" name="username" placeholder="姓名" required="">
 					<input class="text" type="password" name="password" placeholder="密码" required="">
-					<input class="text" type="text" name="imageCode" placeholder="验证码" required="">
+					<input class="text" type="text" name="image" placeholder="验证码" required="">
 					<br>
 					<img src="/code/image">
 					<div class="wthree-text"> 
@@ -42,7 +42,7 @@
 			<div class="agileits-top">
 				<form action="/authentication/mobile" method="post">
 					<input class="text" type="text" value="13200000000" name="phoneNo" placeholder="手机号" required="">
-					<input class="text" type="text" name="smsCode" placeholder="验证码" required="">
+					<input class="text" type="text" name="sms" placeholder="验证码" required="">
 					<br>
 					<a href="/code/sms?phoneNo=13200000000">发送验证码</a>
 					<input type="submit" value="登录">

@@ -4,6 +4,7 @@ import com.security.example.core.config.redis.Constants;
 import com.security.example.core.validate.code.ValidateCodeGenerator;
 import com.security.example.core.validate.code.ValidateCodeProcessor;
 import com.security.example.core.validate.code.ValidateCodeType;
+import com.security.example.core.validate.code.base.BaseCode;
 import com.security.example.core.validate.exception.ValidateCodeException;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
@@ -23,7 +24,7 @@ import java.util.Map;
  * @Description 验证码发送的抽象实现
  */
 @Slf4j
-public abstract class AbstractValidateCodeProcessor<C> implements ValidateCodeProcessor {
+public abstract class AbstractValidateCodeProcessor<C extends BaseCode> implements ValidateCodeProcessor {
 
     @Autowired
     private RedisTemplate redisTemplate;
@@ -106,7 +107,7 @@ public abstract class AbstractValidateCodeProcessor<C> implements ValidateCodePr
      * @return ValidateCodeType
      */
     private ValidateCodeType getValidateCodeType(HttpServletRequest request) {
-        String type = StringUtils.substringAfter(request.getRequestURI(), "/code/");
+        String type = StringUtils.substringBefore(getClass().getSimpleName(), "CodeProcessor");
         return ValidateCodeType.valueOf(type.toUpperCase());
     }
 
@@ -120,4 +121,43 @@ public abstract class AbstractValidateCodeProcessor<C> implements ValidateCodePr
      */
     protected abstract void send(HttpServletRequest request, HttpServletResponse response, C validateCode) throws IOException, ServletRequestBindingException;
 
+    @Override
+    public void validate(HttpServletRequest request) throws ServletRequestBindingException {
+        // 获取验证的类型
+        ValidateCodeType processorType = getValidateCodeType(request);
+        // 获取redis中存的key的值
+        String redisKey = getRedisKey(request);
+
+        // 从缓存中拿出来
+        C codeInCache = (C) redisTemplate.opsForValue().get(redisKey);
+
+        // 然后是请求中的验证码
+        String codeInRequest;
+        try {
+            codeInRequest = ServletRequestUtils.getStringParameter(request, processorType.getParamNameOnValidate());
+        } catch (ServletRequestBindingException e) {
+            throw new ValidateCodeException("获取验证码的值失败");
+        }
+
+        if (StringUtils.isBlank(codeInRequest)) {
+            throw new ValidateCodeException("验证码的值不能为空");
+        }
+
+        if (codeInCache == null) {
+            throw new ValidateCodeException("验证码不存在");
+        }
+
+        if (codeInCache.expired()) {
+            redisTemplate.delete(redisKey);
+            throw new ValidateCodeException("验证码已过期");
+        }
+
+        if (!StringUtils.equalsIgnoreCase(codeInCache.getCode(), codeInRequest)) {
+            throw new ValidateCodeException("验证码错误");
+        }
+
+        // 最后通过的话也从缓存清除掉
+        redisTemplate.delete(redisKey);
+
+    }
 }

@@ -26,11 +26,13 @@ public class UserServiceImpl implements UserService {
         User user2 = new User(2L, "lisi", "$2a$10$W17jDdV96PUBlVx/PL6zDuaK3rv9uH.DKLwkFaD6lhOPkv3GD5sEu", false, true);
         User user3 = new User(3L, "lockedtest", "$2a$10$W17jDdV96PUBlVx/PL6zDuaK3rv9uH.DKLwkFaD6lhOPkv3GD5sEu", true, true);
         User user4 = new User(4L, "enabletest", "$2a$10$W17jDdV96PUBlVx/PL6zDuaK3rv9uH.DKLwkFaD6lhOPkv3GD5sEu", false, false);
+        User user5 = new User(5L, "13200000000", "$2a$10$W17jDdV96PUBlVx/PL6zDuaK3rv9uH.DKLwkFaD6lhOPkv3GD5sEu", false, false);
 
         userMap.put(user1.getName(), user1);
         userMap.put(user2.getName(), user2);
         userMap.put(user3.getName(), user3);
         userMap.put(user4.getName(), user4);
+        userMap.put(user5.getName(), user5);
 
     }
 

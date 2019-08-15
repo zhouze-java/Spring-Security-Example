@@ -15,7 +15,7 @@ import java.io.IOException;
  * @date Create in 14:39 2019/8/13
  * @Description 短信验证码发送
  */
-@Component("smsCodeProcessor")
+@Component("smsValidateCodeProcessor")
 public class SmsCodeProcessor extends AbstractValidateCodeProcessor<SmsCode> {
 
     @Autowired

@@ -13,7 +13,7 @@ import java.io.IOException;
  * @date Create in 14:20 2019/8/13
  * @Description 图片验证码发送的实现
  */
-@Component("imageCodeProcessor")
+@Component("imageValidateCodeProcessor")
 public class ImageCodeProcessor extends AbstractValidateCodeProcessor<ImageCode> {
 
     @Override
