@@ -14,6 +14,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
+import org.springframework.social.security.SpringSocialConfigurer;
 
 import javax.sql.DataSource;
 
@@ -41,6 +42,9 @@ public class BrowserSecurityConfig extends AbstractChannelSecurityConfig {
     @Autowired
     private ValidateCodeSecurityConfig validateCodeSecurityConfig;
 
+    @Autowired
+    private SpringSocialConfigurer securitySocialConfigurer;
+
     @Bean
     public PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
@@ -63,6 +67,8 @@ public class BrowserSecurityConfig extends AbstractChannelSecurityConfig {
                     .apply(validateCodeSecurityConfig)
                 .and()
                     .apply(smsAuthenticationSecurityConfig)
+                .and()
+                    .apply(securitySocialConfigurer)
                 .and()
                     .rememberMe()
                     .tokenRepository(persistentTokenRepository())

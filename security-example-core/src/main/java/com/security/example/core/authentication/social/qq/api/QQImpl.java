@@ -1,6 +1,7 @@
-package com.security.example.core.authentication.social.qq;
+package com.security.example.core.authentication.social.qq.api;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.security.example.core.authentication.social.qq.model.QQUserInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.social.oauth2.AbstractOAuth2ApiBinding;
@@ -39,13 +40,21 @@ public class QQImpl extends AbstractOAuth2ApiBinding implements QQ {
     }
 
     @Override
-    public QQUserInfo getUserInfo() throws IOException {
+    public QQUserInfo getUserInfo() {
         // 有了openid之后就可以获取用户信息了
         String url = String.format(URL_GET_USER_INFO, appId, openId);
         String result = getRestTemplate().getForObject(url, String.class);
         log.info("QQ获取用户信息结果:{}", result);
 
         // 转成对象返回
-        return objectMapper.readValue(result, QQUserInfo.class);
+        QQUserInfo qqUserInfo = null;
+        try {
+            qqUserInfo = objectMapper.readValue(result, QQUserInfo.class);
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new RuntimeException("获取QQ用户信息失败");
+        }
+
+        return qqUserInfo;
     }
 }

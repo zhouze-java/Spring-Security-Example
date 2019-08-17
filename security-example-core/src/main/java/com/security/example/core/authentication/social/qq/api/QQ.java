@@ -1,4 +1,6 @@
-package com.security.example.core.authentication.social.qq;
+package com.security.example.core.authentication.social.qq.api;
+
+import com.security.example.core.authentication.social.qq.model.QQUserInfo;
 
 import java.io.IOException;
 
@@ -13,5 +15,5 @@ public interface QQ {
      * 获取用户信息
      * @return {@link QQUserInfo}
      */
-    QQUserInfo getUserInfo() throws IOException;
+    QQUserInfo getUserInfo();
 }

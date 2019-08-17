@@ -29,9 +29,13 @@ server:
 core:
   security:
     browser:
-      loginPage: /myLogin.html
+#      loginPage: /myLogin.html
       loginResponseType: JSON
     code:
       imageCode:
         codeCount: 4
 #        urls: /user/**,/test/*
+    social:
+      qq:
+        app-id:
+        app-secret:

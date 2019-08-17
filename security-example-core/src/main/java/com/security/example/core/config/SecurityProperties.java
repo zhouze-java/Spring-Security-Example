@@ -22,4 +22,9 @@ public class SecurityProperties {
      * 验证码配置
      */
     private ValidateCodeProperties code = new ValidateCodeProperties();
+
+    /**
+     * social 的配置
+     */
+    private SocialProperties social = new SocialProperties();
 }

@@ -1,4 +1,4 @@
-package com.security.example.core.authentication.social.qq;
+package com.security.example.core.authentication.social.qq.model;
 
 import lombok.Data;
 
