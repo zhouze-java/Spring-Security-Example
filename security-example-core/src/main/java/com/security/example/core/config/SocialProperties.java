@@ -11,6 +11,11 @@ import lombok.Data;
 public class SocialProperties {
 
     /**
+     * social 要拦截的请求地址
+     */
+    private String filterProcessesUrl = "/auth";
+
+    /**
      * QQ的配置
      */
     private QQProperties qq = new QQProperties();
