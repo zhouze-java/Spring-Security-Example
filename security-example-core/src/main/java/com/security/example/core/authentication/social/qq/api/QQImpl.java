@@ -36,7 +36,7 @@ public class QQImpl extends AbstractOAuth2ApiBinding implements QQ {
 
         log.info("QQ获取用户openid结果:{}", result);
         // 返回格式是 callback( {"client_id":"YOUR_APPID","openid":"YOUR_OPENID"} ) 字符串所以需要截取一下
-        this.openId = StringUtils.substringBetween(result, "\"openid\":", "}");
+        this.openId = StringUtils.substringBetween(result,  "\"openid\":\"", "\"}");
     }
 
     @Override
@@ -50,6 +50,8 @@ public class QQImpl extends AbstractOAuth2ApiBinding implements QQ {
         QQUserInfo qqUserInfo = null;
         try {
             qqUserInfo = objectMapper.readValue(result, QQUserInfo.class);
+            // 设置openid到用户信息里
+            qqUserInfo.setOpenId(openId);
         } catch (IOException e) {
             e.printStackTrace();
             throw new RuntimeException("获取QQ用户信息失败");

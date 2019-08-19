@@ -27,6 +27,14 @@ public class QQUserInfo {
      */
     private String is_lost;
     /**
+     * 用户在QQ空间的昵称。
+     */
+    private String nickname;
+    /**
+     * 性别。 如果获取不到则默认返回”男”
+     */
+    private String gender;
+    /**
      * 省(直辖市)
      */
     private String province;
@@ -39,9 +47,9 @@ public class QQUserInfo {
      */
     private String year;
     /**
-     * 用户在QQ空间的昵称。
+     * 星座
      */
-    private String nickname;
+    private String constellation;
     /**
      * 大小为30×30像素的QQ空间头像URL。
      */
@@ -63,9 +71,13 @@ public class QQUserInfo {
      */
     private String figureurl_qq_2;
     /**
-     * 性别。 如果获取不到则默认返回”男”
+     * 也是头像
      */
-    private String gender;
+    private String figureurl_qq;
+    /**
+     * 头像类型
+     */
+    private String figureurl_type;
     /**
      * 标识用户是否为黄钻用户（0：不是；1：是）。
      */
