@@ -81,7 +81,12 @@ public class BrowserSecurityConfig extends AbstractChannelSecurityConfig {
                             SecurityConstants.DEFAULT_UNAUTHENTICATION_URL,
                             SecurityConstants.DEFAULT_LOGIN_PROCESSING_URL_MOBILE,
                             SecurityConstants.DEFAULT_VALIDATE_CODE_URL_PREFIX + "/*",
-                            securityProperties.getBrowser().getLoginPage())
+                            securityProperties.getBrowser().getLoginPage(),
+                            SecurityConstants.DEFAULT_SIGN_UP_URL,
+                            securityProperties.getBrowser().getSignUpPage(),
+                            SecurityConstants.GET_SOCIAL_USER_URL,
+                            "/user/register"
+                    )
                     .permitAll()
                     // 授权请求. anyRequest 就表示所有的请求都需要权限认证
                     .anyRequest().authenticated()

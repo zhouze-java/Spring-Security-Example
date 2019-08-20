@@ -36,9 +36,17 @@ public class SecurityConstants {
      * 默认登录页面
      */
     public static final String DEFAULT_LOGIN_PAGE_URL = "/login.html";
-
     /**
      * 发送短信验证码 或 验证短信验证码时，传递手机号的参数的名称
      */
     public static final String DEFAULT_PARAMETER_NAME_MOBILE = "phoneNo";
+    /**
+     * 默认的注册跳转路径
+     */
+    public static final String DEFAULT_SIGN_UP_URL = "/signUp";
+
+    /**
+     * 获取social获取到的用户信息
+     */
+    public static final String GET_SOCIAL_USER_URL = "/social/user";
 }

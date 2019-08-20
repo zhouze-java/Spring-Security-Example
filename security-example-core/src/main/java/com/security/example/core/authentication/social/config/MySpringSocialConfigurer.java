@@ -1,5 +1,6 @@
 package com.security.example.core.authentication.social.config;
 
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.social.security.SocialAuthenticationFilter;
 import org.springframework.social.security.SpringSocialConfigurer;
 
@@ -22,4 +23,5 @@ public class MySpringSocialConfigurer extends SpringSocialConfigurer {
         filter.setFilterProcessesUrl(filterProcessesUrl);
         return (T) filter;
     }
+
 }

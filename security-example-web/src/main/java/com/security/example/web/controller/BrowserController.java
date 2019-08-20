@@ -1,5 +1,6 @@
 package com.security.example.web.controller;
 
+import com.security.example.core.config.SecurityConstants;
 import com.security.example.core.config.SecurityProperties;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +27,7 @@ import java.util.Map;
  */
 @Slf4j
 @RestController
-@RequestMapping("/authentication/require")
+@RequestMapping(SecurityConstants.DEFAULT_UNAUTHENTICATION_URL)
 public class BrowserController {
 
     private RequestCache requestCache = new HttpSessionRequestCache();

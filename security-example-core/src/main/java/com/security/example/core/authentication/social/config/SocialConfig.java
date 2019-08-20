@@ -10,6 +10,7 @@ import org.springframework.social.config.annotation.SocialConfigurerAdapter;
 import org.springframework.social.connect.ConnectionFactoryLocator;
 import org.springframework.social.connect.UsersConnectionRepository;
 import org.springframework.social.connect.jdbc.JdbcUsersConnectionRepository;
+import org.springframework.social.connect.web.ProviderSignInUtils;
 import org.springframework.social.security.SpringSocialConfigurer;
 
 import javax.sql.DataSource;
@@ -47,6 +48,13 @@ public class SocialConfig extends SocialConfigurerAdapter {
     public SpringSocialConfigurer securitySocialConfigurer(){
         String filterProcessesUrl = securityProperties.getSocial().getFilterProcessesUrl();
         MySpringSocialConfigurer mySpringSocialConfigurer = new MySpringSocialConfigurer(filterProcessesUrl);
+        mySpringSocialConfigurer.signupUrl(securityProperties.getBrowser().getSignUpUrl());
+
         return mySpringSocialConfigurer;
+    }
+
+    @Bean
+    public ProviderSignInUtils providerSignInUtils(ConnectionFactoryLocator connectionFactoryLocator){
+        return new ProviderSignInUtils(connectionFactoryLocator, getUsersConnectionRepository(connectionFactoryLocator));
     }
 }

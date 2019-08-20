@@ -14,7 +14,17 @@ public class BrowserProperties {
     /**
      * 登录页配置
      */
-     private String loginPage = "/login.html";
+    private String loginPage = "/login.html";
+
+    /**
+     * 跳转注册的路径
+     */
+    private String signUpUrl = "/signUp";
+
+    /**
+     * 跳转注册页
+     */
+    private String signUpPage = "/default-signUp.html";
 
     /**
      * 登录返回类型

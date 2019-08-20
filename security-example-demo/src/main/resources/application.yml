@@ -31,6 +31,8 @@ core:
   security:
     browser:
 #      loginPage: /myLogin.html
+#      signUpUrl: /mySignUp
+      signUpPage: /mySignUp.html
       loginResponseType: JSON
     code:
       imageCode:
