@@ -56,4 +56,11 @@ public class UserServiceImpl implements UserService {
 
     }
 
+    @Override
+    public User insert(User user) {
+        userMap.put(user.getName(), user);
+        userIdMap.put(user.getId(), user);
+        return user;
+    }
+
 }

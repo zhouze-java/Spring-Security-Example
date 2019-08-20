@@ -4,10 +4,12 @@ import com.security.example.core.config.SecurityProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
 import org.springframework.security.crypto.encrypt.Encryptors;
 import org.springframework.social.config.annotation.EnableSocial;
 import org.springframework.social.config.annotation.SocialConfigurerAdapter;
 import org.springframework.social.connect.ConnectionFactoryLocator;
+import org.springframework.social.connect.ConnectionSignUp;
 import org.springframework.social.connect.UsersConnectionRepository;
 import org.springframework.social.connect.jdbc.JdbcUsersConnectionRepository;
 import org.springframework.social.connect.web.ProviderSignInUtils;
@@ -22,6 +24,7 @@ import javax.sql.DataSource;
  */
 @Configuration
 @EnableSocial
+@Order(10)
 public class SocialConfig extends SocialConfigurerAdapter {
 
     @Autowired
@@ -29,6 +32,9 @@ public class SocialConfig extends SocialConfigurerAdapter {
 
     @Autowired
     private SecurityProperties securityProperties;
+
+    @Autowired(required = false)
+    private ConnectionSignUp connectionSignUp;
 
     /**
      * 配置 JdbcUsersConnectionRepository
@@ -41,6 +47,7 @@ public class SocialConfig extends SocialConfigurerAdapter {
         JdbcUsersConnectionRepository jdbcUsersConnectionRepository = new JdbcUsersConnectionRepository(dataSource, connectionFactoryLocator, Encryptors.noOpText());
         // 设置表的前缀
 //        jdbcUsersConnectionRepository.setTablePrefix("");
+        jdbcUsersConnectionRepository.setConnectionSignUp(connectionSignUp);
         return jdbcUsersConnectionRepository;
     }
 

@@ -22,4 +22,11 @@ public interface UserService {
      * @return
      */
     User getByUserId(Long id);
+
+    /**
+     * 新建
+     * @param user
+     * @return
+     */
+    User insert(User user);
 }
