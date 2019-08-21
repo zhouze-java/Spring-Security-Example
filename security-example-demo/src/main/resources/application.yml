@@ -44,3 +44,7 @@ core:
         app-id: 100550231
         app-secret: 69b6ab57b22f3c2fe6a6149274e3295e
         providerId: callback.do
+      weChat:
+        app-id: wxcae8541951731eac
+        app-secret: f2a0af37236ece7bdd2493df22bbf526
+        providerId: weixin

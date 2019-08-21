@@ -19,4 +19,9 @@ public class SocialProperties {
      * QQ的配置
      */
     private QQProperties qq = new QQProperties();
+
+    /**
+     * 微信的配置
+     */
+    private WeChatProperties weChat = new WeChatProperties();
 }

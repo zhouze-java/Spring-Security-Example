@@ -20,7 +20,7 @@ public class QQOAuth2Template extends OAuth2Template {
 
     public QQOAuth2Template(String clientId, String clientSecret, String authorizeUrl, String accessTokenUrl) {
         super(clientId, clientSecret, authorizeUrl, accessTokenUrl);
-        // 设置 useParametersForClientAuthentication 为true
+        // 设置 useParametersForClientAuthentication 为true ,请求参数里面才会带上 client_id 和 client_secret 这两个参数
         setUseParametersForClientAuthentication(true);
     }
 
