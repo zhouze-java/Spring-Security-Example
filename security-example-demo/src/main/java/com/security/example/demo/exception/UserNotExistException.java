@@ -17,4 +17,8 @@ public class UserNotExistException extends RuntimeException {
         this.id = id;
     }
 
+    public UserNotExistException() {
+        super("用户不存在");
+    }
+
 }

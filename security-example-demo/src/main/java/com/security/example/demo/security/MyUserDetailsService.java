@@ -1,7 +1,8 @@
 package com.security.example.demo.security;
 
-import com.security.example.core.model.User;
-import com.security.example.core.service.UserService;
+
+import com.security.example.demo.model.User;
+import com.security.example.demo.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.AuthorityUtils;
@@ -28,8 +29,7 @@ public class MyUserDetailsService implements UserDetailsService, SocialUserDetai
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         log.info("进行用户认证...");
-        // 这里是模拟从数据库查询用户
-        User user = userService.findUserByName(username);
+        User user = userService.findUserByPhoneNo(username);
 
         if (user == null) {
             throw new UsernameNotFoundException("用户不存在");
@@ -48,9 +48,9 @@ public class MyUserDetailsService implements UserDetailsService, SocialUserDetai
     @Override
     public SocialUserDetails loadUserByUserId(String userId) throws UsernameNotFoundException {
         // 根据id去查询用户信息
-        User user = userService.getByUserId(Long.valueOf(userId));
+        User user = userService.getUserById(Long.valueOf(userId));
 
-        return new SocialUser(user.getName(),
+        return new SocialUser(user.getUsername(),
                 user.getPassword(),
                 user.getEnable(),
                 true,

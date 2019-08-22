@@ -1,14 +1,13 @@
 package com.security.example.demo.controller;
 
-import com.security.example.core.model.User;
+import com.security.example.demo.model.User;
+import com.security.example.demo.service.UserService;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang.math.RandomUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -24,40 +23,45 @@ public class TestController {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @Autowired
+    private UserService userService;
+
     @GetMapping("/list")
     public List<User> list(){
-        List<User> users = new ArrayList<>();
-
-        User user1 = new User();
-        User user2 = new User();
-        User user3 = new User();
-
-        users.add(user1);
-        users.add(user2);
-        users.add(user3);
-
+        List<User> users = userService.getAll(new User());
         return users;
     }
 
     @GetMapping("{id:\\d+}")
     public User getInfo(@PathVariable Long id){
         log.info("查询id是[{}]的数据.....", id);
-        System.out.println(passwordEncoder.encode("123456"));
-        return new User();
+        return userService.getUserById(id);
+    }
+
+    @GetMapping("pwd/{pwd}")
+    public String passwordEncoder(@PathVariable String pwd){
+        String enCodePwd = passwordEncoder.encode(pwd);
+        log.info("加密后的PWD是.....", enCodePwd);
+        return enCodePwd;
+    }
+
+    @GetMapping("match/{pwd}")
+    public Boolean match(@PathVariable String pwd){
+        Boolean flag = passwordEncoder.matches(pwd, "$2a$10$s3bbhyxx86tPj6FRMvMhaOcj3Vq18ux6ZbIuDLZsDyhNvpRGSbNa2");
+        return flag;
     }
 
     @PostMapping
     public User insert(@Valid @RequestBody User user){
         log.info("添加接口,新建数据....");
-        user.setId(RandomUtils.nextLong());
+        userService.insert(user);
         return user;
     }
 
     @PutMapping("/{id:\\d+}")
     public User update(@PathVariable Long id, @RequestBody User user) {
         log.info("更新接口,更新id是[{}]的数据...", id);
-        user.setId(id);
-
+        userService.update(user);
         return user;
     }
 

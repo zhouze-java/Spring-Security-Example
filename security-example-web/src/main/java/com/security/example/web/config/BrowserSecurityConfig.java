@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -85,7 +86,9 @@ public class BrowserSecurityConfig extends AbstractChannelSecurityConfig {
                             SecurityConstants.DEFAULT_SIGN_UP_URL,
                             securityProperties.getBrowser().getSignUpPage(),
                             SecurityConstants.GET_SOCIAL_USER_URL,
-                            "/user/register"
+                            "/user/register",
+                            "/test/pwd/*",
+                            "/test/match/*"
                     )
                     .permitAll()
                     // 授权请求. anyRequest 就表示所有的请求都需要权限认证
@@ -95,5 +98,12 @@ public class BrowserSecurityConfig extends AbstractChannelSecurityConfig {
                 ;
 
     }
+
+    @Override
+    public void configure(WebSecurity web) throws Exception {
+        //解决静态资源被拦截的问题
+        web.ignoring().antMatchers("/img/**");
+    }
+
 }
 

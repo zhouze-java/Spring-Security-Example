@@ -1,7 +1,8 @@
 package com.security.example.demo.security;
 
-import com.security.example.core.model.User;
-import com.security.example.core.service.UserService;
+
+import com.security.example.demo.model.User;
+import com.security.example.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.social.connect.Connection;
 import org.springframework.social.connect.ConnectionSignUp;
@@ -20,11 +21,13 @@ public class MyConnectionSignUp implements ConnectionSignUp {
 
     @Override
     public String execute(Connection<?> connection) {
+
         // 这里应该去根据自己的业务去创建一个用户,并返回用户的唯一标识
-        User user = new User(6L, connection.getDisplayName(), "123456", false, true);
-
+        User user = new User();
+        user.setUsername(connection.getDisplayName());
+        user.setPhoneNo("");
+        user.setPassword("");
         userService.insert(user);
-
         return user.getId().toString();
     }
 }

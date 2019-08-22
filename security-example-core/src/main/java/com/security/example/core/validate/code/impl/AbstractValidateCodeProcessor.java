@@ -97,7 +97,7 @@ public abstract class AbstractValidateCodeProcessor<C extends BaseCode> implemen
     private void saveCache(HttpServletRequest request, C validateCode) throws ServletRequestBindingException {
         // 将随机数存到缓存中
         String redisKey = getRedisKey(request);
-        log.info("将验证码放到缓存中,redisKey:{}", redisKey);
+        log.info("将验证码[{}]放到缓存中,redisKey:{}",validateCode.getCode(), redisKey);
         redisTemplate.opsForValue().set(redisKey, validateCode);
     }
 

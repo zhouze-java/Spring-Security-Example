@@ -1,84 +1,115 @@
-﻿<!DOCTYPE html>
-<html>
+<!DOCTYPE html>
+<html lang="zh-CN">
 <head>
-	<title>标准登录页</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="UTF-8">
+    <title>用户登录</title>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+    <meta name="Description" content="Google">
+    <link rel="stylesheet" href="./css/base.css">
+    <link rel="stylesheet" href="./css/iconfont.css">
+    <link rel="stylesheet" href="./css/reg.css">
+    <script src="./js/jquery.js"></script>
+    <script src="./js/agree.js"></script>
+    <script src="./js/login.js"></script>
+    <!--设置placeHolder样式-->
+    <style type="text/css">
+        ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+            color: #cacaca;
+            font-size: 14px;
+        }
 
-	<link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
+        ::-moz-placeholder { /* Firefox 19+ */
+            color: #cacaca;
+        }
 
+        :-ms-input-placeholder { /* IE 10+ */
+            color: #cacaca;
+        }
+
+        :-moz-placeholder { /* Firefox 18- */
+            color: #cacaca;
+        }
+    </style>
 </head>
 <body>
+<div id="ajax-hook"></div>
+<div class="wrap">
+    <div class="wpn">
+        <div class="form-data pos">
+            <a href=""><img src="./img/logo.png" class="head-logo"></a>
+            <div class="change-login">
+                <p class="account_number on">账号登录</p>
+                <p class="message">短信登录</p>
+            </div>
+            <div class="form1">
+                <!--dog1-->
+                <form action="/authentication/form" method="post">
+                    <p class="p-input pos">
+                        <!-- <label for="username">请输入用户名</label>-->
+                        <input type="text" id="username" name="username" placeholder="请输入手机号" required="required">
+                    </p>
+                    <p class="p-input pos">
+                        <!--  <label for="password">请输入密码</label>-->
+                        <!--<input type="password" style="display:none"/>-->
+                        <input type="password" id="password" name="password" placeholder="请输入密码" required="required" />
+                    </p>
+                    <p class="p-input pos code">
+                        <label for="imageCode">请输入验证码</label>
+                        <input type="text" id="imageCode" name="image">
+                        <img src="/code/image?width=200">
+                    </p>
+                    <!--没本事改了，直接给他写死记住我了...-->
+                    <div class="reg_checkboxline pos">
+                        <span class="z"><i class="icon-ok-sign boxcol" nullmsg="请同意!"></i></span>
+                        <input type="hidden" name="remember-me" value="true">
+                        <p>记住我</p>
+                    </div>
+                    <div>
+                        <button type="submit" class="lang-btn off log-btn" value="登录">登录</button>
+                    </div>
+                </form>
+            </div>
+            <div class="form2 hide">
+                <!--dog2-->
+                <form action="/authentication/mobile" method="post" id="usePhone">
+                    <p class="p-input pos">
+                        <!--修改name属性-->
+                        <label for="num2">手机号</label>
+                        <input type="number" id="num2" name="phoneNo" />
+                        <span class="tel-warn num2-err hide"><em>账号或密码错误</em><i class="icon-warn"></i></span>
+                    </p>
+                    <p class="p-input pos">
+                        <label for="veri-code">输入验证码</label>
+                        <!--修改name属性-->
+                        <input type="number" id="veri-code" name="sms">
+                        <!--验证码请求路径-->
+                        <a href="/code/sms?phoneNo=13200000000" class="send">发送验证码</a>
+                        <span class="time hide"><em>120</em>s</span>
+                        <span class="tel-warn error hide">验证码错误</span>
+                    </p>
+                    <div>
+                        <button type="submit" class="lang-btn off log-btn" value="登录">登录</button>
+                    </div>
+                </form>
+            </div>
+            <div class="r-forget cl">
+                <a href="google-browser-signUp.html" class="z">账号注册</a>
+                <a href="google-browser-forget.html" class="y">忘记密码</a>
+            </div>
 
-<!-- main -->
-<div class="main-w3layouts wrapper">
-	<div class="main-agileinfo">
-		<div class="agileits-top">
-			<form action="/authentication/from" method="post">
-				<input class="text" type="text" name="username" placeholder="姓名" required="">
-				<input class="text" type="password" name="password" placeholder="密码" required="">
-				<input class="text" type="text" name="image" placeholder="验证码" required="">
-				<br>
-				<img src="/code/image?width=200">
-				<div class="wthree-text">
-					<ul>
-						<li>
-							<label class="anim">
-								<input type="checkbox" class="checkbox" name="remember-me" >
-								<span> 记住我?</span>
-							</label>
-						</li>
-						<li><a href="#">忘记密码 ?</a> </li>
-					</ul>
-					<div class="clear"> </div>
-				</div>
-				<div class="wthree-text">
-					<ul>
-						<li>
-							<a href = '/qqLogin/callback.do'>QQ登录</a>
-						</li>
-						<li>
-							<a href = '/qqLogin/weiChat'>微信登录</a>
-						</li>
-					</ul>
-					<div class="clear"> </div>
-				</div>
-				<input type="submit" value="登录">
-			</form>
-			<p>创建一个账号? <a href="#"> 立即登录!</a></p>
-		</div>
 
-		<div class="agileits-top">
-			<form action="/authentication/mobile" method="post">
-				<input class="text" type="text" value="13200000000" name="phoneNo" placeholder="手机号" required="">
-				<input class="text" type="text" name="sms" placeholder="验证码" required="">
-				<br>
-				<a href="/code/sms?phoneNo=13200000000">发送验证码</a>
-				<input type="submit" value="登录">
-			</form>
-		</div>
-
-	</div>
-
-	<!-- copyright -->
-	<div class="w3copyright-agile">
-		<p>© 2017 All rights Reserved</p>
-	</div>
-	<!-- //copyright -->
-	<ul class="w3lsg-bubbles">
-		<li></li>
-		<li></li>
-		<li></li>
-		<li></li>
-		<li></li>
-		<li></li>
-		<li></li>
-		<li></li>
-		<li></li>
-		<li></li>
-	</ul>
+            <div class="third-party">
+                <!--dog3-->
+                <a href="/qqLogin/callback.do" class="log-qq icon-qq-round"></a>
+                <a href="/qqLogin/weChat" class="log-qq icon-weixin"></a>
+                <a href="#" class="log-qq icon-sina1"></a>
+            </div>
+            <p class="right">Powered by © 2018</p>
+        </div>
+    </div>
 </div>
-<!-- //main -->
-
+<div style="text-align:center;">
+    <p>Google：<a href="http://www.mycodes.net/" target="_blank">中国</a></p>
+</div>
 </body>
 </html>
