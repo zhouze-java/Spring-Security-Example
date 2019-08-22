@@ -36,7 +36,7 @@ public class MyUserDetailsService implements UserDetailsService, SocialUserDetai
         }
         // 查询出来,返回去
         return new org.springframework.security.core.userdetails.User(
-                username,
+                user.getId().toString(),
                 user.getPassword(),
                 user.getEnable(),
                 true,
@@ -50,7 +50,7 @@ public class MyUserDetailsService implements UserDetailsService, SocialUserDetai
         // 根据id去查询用户信息
         User user = userService.getUserById(Long.valueOf(userId));
 
-        return new SocialUser(user.getUsername(),
+        return new SocialUser(userId ,
                 user.getPassword(),
                 user.getEnable(),
                 true,

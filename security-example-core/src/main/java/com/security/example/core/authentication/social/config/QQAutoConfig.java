@@ -1,13 +1,17 @@
 package com.security.example.core.authentication.social.config;
 
 import com.security.example.core.authentication.social.qq.connect.QQConnectionFactory;
+import com.security.example.core.authentication.social.vo.ConnectView;
 import com.security.example.core.config.QQProperties;
 import com.security.example.core.config.SecurityProperties;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.social.SocialAutoConfigurerAdapter;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.social.connect.ConnectionFactory;
+import org.springframework.web.servlet.View;
 
 /**
  * @author 周泽
@@ -26,4 +30,5 @@ public class QQAutoConfig extends SocialAutoConfigurerAdapter {
         QQProperties qq = securityProperties.getSocial().getQq();
         return new QQConnectionFactory(qq.getProviderId(), qq.getAppId(), qq.getAppSecret());
     }
+
 }
