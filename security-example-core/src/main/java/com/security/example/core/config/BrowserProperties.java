@@ -27,6 +27,16 @@ public class BrowserProperties {
     private String signUpPage = "/default-signUp.html";
 
     /**
+     * 注销的url
+     */
+    private String logOutUrl = "/logout";
+
+    /**
+     * 注销成功后的跳转路径
+     */
+    private String logOutSuccessUrl;
+
+    /**
      * 登录返回类型
      */
     private LoginResponseType loginResponseType = LoginResponseType.JSON;
