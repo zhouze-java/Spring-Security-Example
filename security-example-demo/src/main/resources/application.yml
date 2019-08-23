@@ -22,7 +22,7 @@ spring:
     poolPreparedStatements: true
     maxOpenPreparedStatements: 20
   session:
-    store-type: none
+    store-type: redis
   redis:
     cluster:
       nodes: 172.16.12.3:7000,172.16.12.3:7001,172.16.12.3:7002,172.16.12.3:7003,172.16.12.3:7004,172.16.12.3:7005
