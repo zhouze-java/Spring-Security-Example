@@ -49,4 +49,9 @@ public class SecurityConstants {
      * 获取social获取到的用户信息
      */
     public static final String GET_SOCIAL_USER_URL = "/social/user";
+
+    /**
+     * session失效时的条转地址
+     */
+    public static final String DEFAULT_SESSION_INVALID_URL = "/session/invalid";
 }

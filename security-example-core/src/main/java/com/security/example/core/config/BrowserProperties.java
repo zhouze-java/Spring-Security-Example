@@ -35,4 +35,9 @@ public class BrowserProperties {
      * 记住我的秒数
      */
     private int rememberMeSeconds = 60 * 60 * 24;
+
+    /**
+     * session的配置
+     */
+    private SessionProperties session = new SessionProperties();
 }

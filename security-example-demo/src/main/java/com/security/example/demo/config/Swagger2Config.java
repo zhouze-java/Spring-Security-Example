@@ -15,9 +15,8 @@ import javax.servlet.http.HttpSession;
 /*import springfox.documentation.service.Contact;*/
 
 /**
- * 
- * @author shouping
- * TODO service 单元测试需要注释掉
+ * @author 周泽
+ * @desc swagger配置
  */
 @Configuration
 @EnableSwagger2
