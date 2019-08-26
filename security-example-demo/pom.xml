@@ -24,9 +24,16 @@
     <dependencies>
 
         <!-- web -->
+<!--        <dependency>-->
+<!--            <groupId>com.security</groupId>-->
+<!--            <artifactId>security-example-web</artifactId>-->
+<!--            <version>0.0.1-SNAPSHOT</version>-->
+<!--        </dependency>-->
+
+        <!-- app -->
         <dependency>
             <groupId>com.security</groupId>
-            <artifactId>security-example-web</artifactId>
+            <artifactId>security-example-app</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
 

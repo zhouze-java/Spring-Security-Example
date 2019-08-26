@@ -42,7 +42,7 @@ public class MyUserDetailsService implements UserDetailsService, SocialUserDetai
                 true,
                 true,
                 !user.getLocked(),
-                AuthorityUtils.commaSeparatedStringToAuthorityList("admin"));
+                AuthorityUtils.commaSeparatedStringToAuthorityList("admin,ROLE_USER"));
     }
 
     @Override
@@ -56,6 +56,6 @@ public class MyUserDetailsService implements UserDetailsService, SocialUserDetai
                 true,
                 true,
                 !user.getLocked(),
-                AuthorityUtils.commaSeparatedStringToAuthorityList("admin"));
+                AuthorityUtils.commaSeparatedStringToAuthorityList("admin,ROLE_USER"));
     }
 }
