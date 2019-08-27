@@ -62,8 +62,8 @@ public class MyResourcesServerConfig extends ResourceServerConfigurerAdapter {
                 .failureHandler(myAuthenticationFailureHandler);
 
         http
-//                .apply(validateCodeSecurityConfig)
-//                .and()
+                .apply(validateCodeSecurityConfig)
+                .and()
                 .apply(smsAuthenticationSecurityConfig)
                 .and()
                 .apply(securitySocialConfigurer)
