@@ -1,5 +1,6 @@
 package com.security.example.core.authentication.social.config;
 
+import com.security.example.core.authentication.social.SocialAuthenticationFilterPostProcessor;
 import com.security.example.core.config.SecurityProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -36,6 +37,9 @@ public class SocialConfig extends SocialConfigurerAdapter {
     @Autowired(required = false)
     private ConnectionSignUp connectionSignUp;
 
+    @Autowired(required = false)
+    private SocialAuthenticationFilterPostProcessor socialAuthenticationFilterPostProcessor;
+
     /**
      * 配置 JdbcUsersConnectionRepository
      * @param connectionFactoryLocator
@@ -56,7 +60,7 @@ public class SocialConfig extends SocialConfigurerAdapter {
         String filterProcessesUrl = securityProperties.getSocial().getFilterProcessesUrl();
         MySpringSocialConfigurer mySpringSocialConfigurer = new MySpringSocialConfigurer(filterProcessesUrl);
         mySpringSocialConfigurer.signupUrl(securityProperties.getBrowser().getSignUpUrl());
-
+        mySpringSocialConfigurer.setSocialAuthenticationFilterPostProcessor(socialAuthenticationFilterPostProcessor);
         return mySpringSocialConfigurer;
     }
 

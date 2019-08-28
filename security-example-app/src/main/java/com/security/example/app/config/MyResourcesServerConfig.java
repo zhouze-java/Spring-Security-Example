@@ -1,5 +1,6 @@
 package com.security.example.app.config;
 
+import com.security.example.app.authentication.social.config.OpenIdAuthenticationSecurityConfig;
 import com.security.example.core.authentication.sms.config.SmsAuthenticationSecurityConfig;
 import com.security.example.core.config.SecurityConstants;
 import com.security.example.core.config.SecurityProperties;
@@ -52,6 +53,9 @@ public class MyResourcesServerConfig extends ResourceServerConfigurerAdapter {
     @Autowired
     private AuthenticationFailureHandler myAuthenticationFailureHandler;
 
+    @Autowired
+    private OpenIdAuthenticationSecurityConfig openIdAuthenticationSecurityConfig;
+
     @Override
     public void configure(HttpSecurity http) throws Exception {
         // web网页登录的配置
@@ -65,6 +69,8 @@ public class MyResourcesServerConfig extends ResourceServerConfigurerAdapter {
                 .apply(validateCodeSecurityConfig)
                 .and()
                 .apply(smsAuthenticationSecurityConfig)
+                .and()
+                .apply(openIdAuthenticationSecurityConfig)
                 .and()
                 .apply(securitySocialConfigurer)
                 .and()
