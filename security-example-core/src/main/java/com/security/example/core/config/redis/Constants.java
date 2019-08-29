@@ -15,5 +15,8 @@ public class Constants {
      */
     public static final String VALIDATE_CODE_KEY_PREFIX = "code:";
 
-
+    /**
+     * 第三方用户信息验证码前缀
+     */
+    public static final String SOCIAL_USER_INFO_KEY_PREFIX = "social:connection:";
 }

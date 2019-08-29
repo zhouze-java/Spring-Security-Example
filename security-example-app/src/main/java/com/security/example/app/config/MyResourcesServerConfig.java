@@ -85,7 +85,8 @@ public class MyResourcesServerConfig extends ResourceServerConfigurerAdapter {
                         securityProperties.getBrowser().getSignUpPage(),
                         SecurityConstants.GET_SOCIAL_USER_URL,
                         securityProperties.getBrowser().getSession().getSessionInvalidUrl(),
-                        "/user/register"
+                        "/user/register",
+                        SecurityConstants.DEFAULT_APP_SIGNUP_URL
                 )
                 .permitAll()
                 // 授权请求. anyRequest 就表示所有的请求都需要权限认证

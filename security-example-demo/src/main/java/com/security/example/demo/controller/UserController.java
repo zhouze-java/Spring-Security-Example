@@ -1,5 +1,6 @@
 package com.security.example.demo.controller;
 
+import com.security.example.app.authentication.social.signup.AppSignUpUtil;
 import com.security.example.demo.exception.UserNotExistException;
 import com.security.example.demo.model.User;
 import com.security.example.demo.service.UserService;
@@ -39,6 +40,9 @@ public class UserController {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @Autowired
+    private AppSignUpUtil appSignUpUtil;
+
     @GetMapping("/me")
     public Object me(@AuthenticationPrincipal UserDetails userDetails){
         return userDetails;
@@ -72,6 +76,8 @@ public class UserController {
         }
 
         // 最终要拿到业务系统中的 用户的唯一标识
-        providerSignInUtils.doPostSignUp(String.valueOf(userId), new ServletWebRequest(request));
+//        providerSignInUtils.doPostSignUp(String.valueOf(userId), new ServletWebRequest(request));
+
+        appSignUpUtil.doPostSignUp(request,String.valueOf(userId));
     }
 }

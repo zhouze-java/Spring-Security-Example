@@ -1,4 +1,4 @@
-package com.security.example.web.model;
+package com.security.example.core.model;
 
 import lombok.Data;
 

@@ -69,4 +69,9 @@ public class SecurityConstants {
      * 默认的OPENID登录请求处理url
      */
     public static final String DEFAULT_LOGIN_PROCESSING_URL_OPENID = "/authentication/openid";
+
+    /**
+     * 默认的app的注册页面
+     */
+    public static final String DEFAULT_APP_SIGNUP_URL = "/social/signUp";
 }

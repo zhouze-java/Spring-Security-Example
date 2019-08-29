@@ -1,5 +1,6 @@
-package com.security.example.web.controller;
+package com.security.example.app.controller;
 
+import com.security.example.app.authentication.social.signup.AppSignUpUtil;
 import com.security.example.core.config.SecurityConstants;
 import com.security.example.core.model.SocialUserInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,17 +14,21 @@ import javax.servlet.http.HttpServletRequest;
 
 /**
  * @author 周泽
- * @date Create in 15:23 2019/8/20
- * @Description 获取 Social 获取到的用户信息
+ * @date Create in 22:28 2019/8/28
+ * @Description
  */
 @RestController
-public class SocialUserController {
+public class SocialController {
 
     @Autowired
     private ProviderSignInUtils providerSignInUtils;
 
-    @GetMapping(SecurityConstants.GET_SOCIAL_USER_URL)
-    private SocialUserInfo getSocialUser(HttpServletRequest request){
+    @Autowired
+    private AppSignUpUtil appSignUpUtil;
+
+    @GetMapping(SecurityConstants.DEFAULT_APP_SIGNUP_URL)
+    public SocialUserInfo getSocialUserInfo(HttpServletRequest request){
+
         SocialUserInfo userInfo = new SocialUserInfo();
 
         Connection<?> connection = providerSignInUtils.getConnectionFromSession(new ServletWebRequest(request));
@@ -33,6 +38,11 @@ public class SocialUserController {
         userInfo.setNickname(connection.getDisplayName());
         userInfo.setHeadimg(connection.getImageUrl());
 
+        // 存到redis中去
+        appSignUpUtil.saveConnectionData(request, connection.createData());
+
         return userInfo;
     }
+
+
 }
