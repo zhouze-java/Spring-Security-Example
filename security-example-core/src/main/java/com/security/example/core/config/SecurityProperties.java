@@ -27,4 +27,9 @@ public class SecurityProperties {
      * social 的配置
      */
     private SocialProperties social = new SocialProperties();
+
+    /**
+     * oAuth2的配置
+     */
+    private OAuth2Properties oAuth2 = new OAuth2Properties();
 }
