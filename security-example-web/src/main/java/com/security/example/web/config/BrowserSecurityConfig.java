@@ -4,6 +4,7 @@ import com.security.example.core.authentication.AbstractChannelSecurityConfig;
 import com.security.example.core.authentication.sms.config.SmsAuthenticationSecurityConfig;
 import com.security.example.core.config.SecurityConstants;
 import com.security.example.core.config.SecurityProperties;
+import com.security.example.core.config.authorize.AuthorizeConfigManager;
 import com.security.example.core.validate.config.ValidateCodeSecurityConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -58,6 +59,9 @@ public class BrowserSecurityConfig extends AbstractChannelSecurityConfig {
     @Autowired
     private LogoutSuccessHandler logoutSuccessHandler;
 
+    @Autowired
+    private AuthorizeConfigManager authorizeConfigManager;
+
     @Bean
     public PersistentTokenRepository persistentTokenRepository() {
         JdbcTokenRepositoryImpl tokenRepository = new JdbcTokenRepositoryImpl();
@@ -94,25 +98,9 @@ public class BrowserSecurityConfig extends AbstractChannelSecurityConfig {
                     .logoutUrl(securityProperties.getBrowser().getLogOutUrl())
                     .logoutSuccessHandler(logoutSuccessHandler)
                 .and()
-                    .authorizeRequests()
-                    // 匹配的是登录页的话放行
-                    .antMatchers(
-                            SecurityConstants.DEFAULT_UNAUTHENTICATION_URL,
-                            SecurityConstants.DEFAULT_LOGIN_PROCESSING_URL_MOBILE,
-                            SecurityConstants.DEFAULT_VALIDATE_CODE_URL_PREFIX + "/*",
-                            securityProperties.getBrowser().getLoginPage(),
-                            SecurityConstants.DEFAULT_SIGN_UP_URL,
-                            securityProperties.getBrowser().getSignUpPage(),
-                            SecurityConstants.GET_SOCIAL_USER_URL,
-                            securityProperties.getBrowser().getSession().getSessionInvalidUrl(),
-                            "/user/register"
-                    )
-                    .permitAll()
-                    // 授权请求. anyRequest 就表示所有的请求都需要权限认证
-                    .anyRequest().authenticated()
-                    .and()
                     .csrf().disable()
                 ;
+        authorizeConfigManager.config(http.authorizeRequests());
 
     }
 
